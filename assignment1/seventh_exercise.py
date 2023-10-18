@@ -3,7 +3,6 @@ def stats_measures(ls):
     mean=0
     for i in ls:
         mean+=i
-    # return mean/len(ls)
     #Calculate Median
     median=float(0)
     for i in ls:
@@ -11,6 +10,4 @@ def stats_measures(ls):
             median=(ls[(len(ls)//2)]+ls[(len(ls)//2)-1])
         else:
             median=(ls[len(ls)//2])
-        # return median
-    #Calculate Mode
-    
+    return mean/len(ls),median
