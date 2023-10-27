@@ -22,9 +22,9 @@ def count(input1):
 def findmax(ls):
     max=0
     for i in range(len(ls)):
-        if ls[i]>max:
+        if str(ls[i])>str(max):
             max=ls[i]
-            findmax[ls[1:]]
+            findmax(ls[1:])
     return max
 #############################################################
 if input0==1:
