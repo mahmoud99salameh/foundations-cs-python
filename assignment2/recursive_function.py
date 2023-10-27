@@ -18,12 +18,22 @@ def count(input1):
     else:
         # If not, call the function again with the length of the remaining input
         return 1 + count(len(input1[1:]))
+#############################################################
+def findmax(ls):
+    max=0
+    for i in range(len(ls)):
+        if ls[i]>max:
+            max=ls[i]
+            findmax[ls[1:]]
+    return max
+#############################################################
 if input0==1:
     input1 = input("Enter a input: ")
     # Print the result of the count function
     print(count(input1))
+elif input0==2:
+    input1 = input("Enter a list: ")
+    print(findmax(input1))
 else:
     print("Not in choices")
 #############################################################
-
-
