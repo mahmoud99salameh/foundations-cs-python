@@ -11,5 +11,3 @@ def stats_measures(ls):
         else:
             median=(ls[len(ls)//2])
     return mean/len(ls),median
-
-
