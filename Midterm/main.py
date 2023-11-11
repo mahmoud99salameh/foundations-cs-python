@@ -1,22 +1,16 @@
-import webbrowser
-import os
 from selenium import webdriver
-import time
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
-browser = webdriver.Safari()
-#open normal tab
-def OpenNewTab():
-    webbrowser.open('https://google.com', new=2)
-#close tab
-def CloseSafari():
-        os.system('TASKKILL /F /IM safari.???')
-#open tab with web driver
-def OpenWithWebDriver():
-      browser.get("https://google.com")
-      
-def CloseTab():
-      browser.close()
+def clean_browser():
+      option= webdriver.ChromeOptions()
+      option.add_argument('--incognito')
+      driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),
+                            options=option)
+      return driver
 
-
-
-
+if __name__ == '__main__':
+      print('1')
+      driver = clean_browser()
+      print('2')
+      driver.get('www.google.com')
