@@ -97,7 +97,21 @@ class WebBrowser:
                 del self.tabs[parent_tab_id]['subtabs'][tab_id]
 
         print(f"Tab '{tab_id}' closed.") 
-         
+      def activate_tab(self, tab_id):
+        # Check if the tab is open
+        if tab_id not in self.tabs:
+            print(f"Tab '{tab_id}' is not open.")
+            return
+
+        # Deactivate all tabs
+        for tab in self.tab_order:
+            self.tabs[tab]['active'] = False
+
+        # Activate the specified tab
+        self.tabs[tab_id]['active'] = True
+
+        print(f"Tab '{tab_id}' activated.")
+ 
 # Example Usage
 browser = WebBrowser()
 
