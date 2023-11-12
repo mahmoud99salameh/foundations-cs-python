@@ -128,3 +128,6 @@ class WebBrowser:
 
 # Example Usage
 browser = WebBrowser()
+browser.open_tab(1, "https://www.google.com", "Google Page")
+browser.open_tab(2, "https://www.python.org", "Python Official Site")
+browser.open_tab(3, "https://www.github.com", "GitHub")
