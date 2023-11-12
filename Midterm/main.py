@@ -131,12 +131,12 @@ class WebBrowser:
         self.tabs = {}
         self.tab_order = []
         print("All tabs cleared.")
-      def save_tabs(self, filename="tabs.json"):
+      def SaveTabs(self, filename="tabs.json"):
         # Save tabs to a JSON file
         with open(filename, 'w') as file:
             json.dump({'tabs': self.tabs, 'tab_order': self.tab_order}, file)
         print(f"Tabs saved to {filename}.")
-      def import_tabs(self, filename="tabs.json"):
+      def ImportTabs(self, filename="tabs.json"):
         # Import tabs from a JSON file
         try:
             with open(filename, 'r') as file:
@@ -160,3 +160,4 @@ browser.ActivateTab(2)
 browser.DisplayTabs()
 browser.ClearAllTabs(1)
 browser.DisplayTabs()
+browser.SaveTabs()
