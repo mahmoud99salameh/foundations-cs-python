@@ -47,11 +47,11 @@ def NestedTabs():
     driver.get("https://www.facebook.com")
 
 class WebBrowser:
-    def __init__(self):
+      def __init__(self):
         self.tabs = {}  # Dictionary to store tabs
         self.tab_order = []  # List to maintain the order of open tabs
 
-    def open_tab(self, tab_id, url, title, parent_tab=None):
+      def open_tab(self, tab_id, url, title, parent_tab=None):
         # Check if the tab is already open
         if tab_id in self.tabs:
             print(f"Tab '{tab_id}' is already open.")
@@ -79,6 +79,25 @@ class WebBrowser:
             self.tab_order.append(tab_id)
 
         print(f"Tab '{tab_id}' opened with URL: {url}")
+
+      def close_tab(self, tab_id):
+        # Check if the tab is open
+        if tab_id not in self.tabs:
+            print(f"Tab '{tab_id}' is not open.")
+            return
+
+        # Remove the tab from the dictionary and the order list
+        if tab_id in self.tab_order:
+            self.tab_order.remove(tab_id)
+        else:
+            # If the tab is a subtab, remove it from the parent tab's subtabs
+            parent_tab_id = [parent for parent, tab in self.tabs.items() if tab_id in tab['subtabs']]
+            if parent_tab_id:
+                parent_tab_id = parent_tab_id[0]
+                del self.tabs[parent_tab_id]['subtabs'][tab_id]
+
+        print(f"Tab '{tab_id}' closed.") 
+         
 # Example Usage
 browser = WebBrowser()
 
