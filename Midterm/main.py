@@ -125,6 +125,11 @@ class WebBrowser:
 
             # Display subtabs recursively
             self.display_tabs(tab_id=tab_id, level=level + 1)
+      def clear_all_tabs(self):
+        # Clear all tabs
+        self.tabs = {}
+        self.tab_order = []
+        print("All tabs cleared.")
 
 # Example Usage
 browser = WebBrowser()
