@@ -51,7 +51,7 @@ class WebBrowser:
         self.tabs = {}  # Dictionary to store tabs
         self.tab_order = []  # List to maintain the order of open tabs
 
-      def open_tab(self, tab_id, url, title, parent_tab=None):
+      def OpenTab(self, tab_id, url, title, parent_tab=None):
         # Check if the tab is already open
         if tab_id in self.tabs:
             print(f"Tab '{tab_id}' is already open.")
@@ -80,7 +80,7 @@ class WebBrowser:
 
         print(f"Tab '{tab_id}' opened with URL: {url}")
 
-      def close_tab(self, tab_id):
+      def CloseTab(self, tab_id):
         # Check if the tab is open
         if tab_id not in self.tabs:
             print(f"Tab '{tab_id}' is not open.")
@@ -97,7 +97,7 @@ class WebBrowser:
                 del self.tabs[parent_tab_id]['subtabs'][tab_id]
 
         print(f"Tab '{tab_id}' closed.") 
-      def activate_tab(self, tab_id):
+      def ActivateTab(self, tab_id):
         # Check if the tab is open
         if tab_id not in self.tabs:
             print(f"Tab '{tab_id}' is not open.")
@@ -111,7 +111,7 @@ class WebBrowser:
         self.tabs[tab_id]['active'] = True
 
         print(f"Tab '{tab_id}' activated.")
-      def display_tabs(self, tab_id=None, level=0):
+      def DisplayTabs(self, tab_id=None, level=0):
         # Display the open tabs and their details
         if tab_id is None:
             tabs_to_display = self.tab_order
@@ -125,7 +125,7 @@ class WebBrowser:
 
             # Display subtabs recursively
             self.display_tabs(tab_id=tab_id, level=level + 1)
-      def clear_all_tabs(self):
+      def ClearAllTabs(self):
         # Clear all tabs
         self.tabs = {}
         self.tab_order = []
@@ -133,13 +133,13 @@ class WebBrowser:
 
 # Example Usage
 browser = WebBrowser()
-browser.open_tab(1, "https://www.google.com", "Google Page")
-browser.open_tab(2, "https://www.python.org", "Python Official Site")
-browser.open_tab(3, "https://www.github.com", "GitHub")
-browser.open_tab(4, "https://www.subtab.com", "Subtab", parent_tab=1)
-browser.open_tab(5, "https://www.subsubtab.com", "SubSubtab", parent_tab=4)
-browser.display_tabs()
-browser.activate_tab(2)
-browser.display_tabs()
-browser.close_tab(1)
-browser.display_tabs()
+browser.OpenTab(1, "https://www.google.com", "Google Page")
+browser.OpenTab(2, "https://www.python.org", "Python Official Site")
+browser.OpenTab(3, "https://www.github.com", "GitHub")
+browser.OpenTab(4, "https://www.subtab.com", "Subtab", parent_tab=1)
+browser.OpenTab(5, "https://www.subsubtab.com", "SubSubtab", parent_tab=4)
+browser.DisplayTabs()
+browser.ActivateTab(2)
+browser.DisplayTabs()
+browser.ClearAllTabs(1)
+browser.DisplayTabs()
