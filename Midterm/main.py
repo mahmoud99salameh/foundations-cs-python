@@ -111,7 +111,21 @@ class WebBrowser:
         self.tabs[tab_id]['active'] = True
 
         print(f"Tab '{tab_id}' activated.")
- 
+      def display_tabs(self, tab_id=None, level=0):
+        # Display the open tabs and their details
+        if tab_id is None:
+            tabs_to_display = self.tab_order
+        else:
+            tabs_to_display = [tab_id]
+
+        for tab_id in tabs_to_display:
+            tab = self.tabs[tab_id]
+            status = "Active" if tab['active'] else "Inactive"
+            print("  " * level + f"{tab_id}: {tab['title']} ({tab['url']}) - {status}")
+
+            # Display subtabs recursively
+            self.display_tabs(tab_id=tab_id, level=level + 1)
+
 # Example Usage
 browser = WebBrowser()
 
