@@ -71,6 +71,14 @@ class WebBrowser:
             status = "Active" if tab['active'] else "Inactive"
             print(f"{tab_id}: {tab['title']} ({tab['url']}) - {status}")
 
+ # Add the tab to the parent tab if provided, otherwise add it to the main dictionary
+        if parent_tab:
+            self.tabs[parent_tab]['subtabs'][tab_id] = tab
+        else:
+            self.tabs[tab_id] = tab
+            self.tab_order.append(tab_id)
+
+        print(f"Tab '{tab_id}' opened with URL: {url}")
 # Example Usage
 browser = WebBrowser()
 
