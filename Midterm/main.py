@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time 
+import json
 chrome_options = Options()
 
 chrome_options.add_experimental_option("detach", True)
@@ -130,7 +131,11 @@ class WebBrowser:
         self.tabs = {}
         self.tab_order = []
         print("All tabs cleared.")
-
+      def save_tabs(self, filename="tabs.json"):
+        # Save tabs to a JSON file
+        with open(filename, 'w') as file:
+            json.dump({'tabs': self.tabs, 'tab_order': self.tab_order}, file)
+        print(f"Tabs saved to {filename}.")
 # Example Usage
 browser = WebBrowser()
 browser.OpenTab(1, "https://www.google.com", "Google Page")
