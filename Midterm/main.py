@@ -51,7 +51,7 @@ class WebBrowser:
         self.tabs = {}  # Dictionary to store tabs
         self.tab_order = []  # List to maintain the order of open tabs
 
-    def open_tab(self, tab_id, url, title):#open tab details
+    def open_tab(self, tab_id, url, title, parent_tab=None):
         # Check if the tab is already open
         if tab_id in self.tabs:
             print(f"Tab '{tab_id}' is already open.")
@@ -61,43 +61,9 @@ class WebBrowser:
         tab = {
             'url': url,
             'title': title,
-            'active': False  # Initially, the tab is not active
+            'active': False,  # Initially, the tab is not active
+            'subtabs': {}  # Dictionary to store subtabs
         }
-
-        # Add the tab to the dictionary and the order list
-        self.tabs[tab_id] = tab
-        self.tab_order.append(tab_id)
-
-        print(f"Tab '{tab_id}' opened with URL: {url}")
-
-    def close_tab(self, tab_id):#close tab details
-        # Check if the tab is open
-        if tab_id not in self.tabs:
-            print(f"Tab '{tab_id}' is not open.")
-            return
-
-        # Remove the tab from the dictionary and the order list
-        del self.tabs[tab_id]
-        self.tab_order.remove(tab_id)
-
-        print(f"Tab '{tab_id}' closed.")
-
-    def activate_tab(self, tab_id):#activated tab 
-        # Check if the tab is open
-        if tab_id not in self.tabs:
-            print(f"Tab '{tab_id}' is not open.")
-            return
-
-        # Deactivate all tabs
-        for tab in self.tab_order:
-            self.tabs[tab]['active'] = False
-
-        # Activate the specified tab
-        self.tabs[tab_id]['active'] = True
-
-        print(f"Tab '{tab_id}' activated.")
-
-    def display_tabs(self):#showing all tabs details
         # Display the open tabs and their details
         print("Open Tabs:")
         for tab_id in self.tab_order:
