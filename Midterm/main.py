@@ -136,6 +136,18 @@ class WebBrowser:
         with open(filename, 'w') as file:
             json.dump({'tabs': self.tabs, 'tab_order': self.tab_order}, file)
         print(f"Tabs saved to {filename}.")
+      def import_tabs(self, filename="tabs.json"):
+        # Import tabs from a JSON file
+        try:
+            with open(filename, 'r') as file:
+                data = json.load(file)
+            self.tabs = data.get('tabs', {})
+            self.tab_order = data.get('tab_order', [])
+            print(f"Tabs imported from {filename}.")
+        except FileNotFoundError:
+            print(f"File {filename} not found.")
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON in {filename}.")
 # Example Usage
 browser = WebBrowser()
 browser.OpenTab(1, "https://www.google.com", "Google Page")
