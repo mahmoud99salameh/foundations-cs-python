@@ -17,6 +17,12 @@ class Task:
     @description.setter
     def description(self,description):
         self.description=description
+    @property
+    def priority(self):
+        return self.priority
+    @priority.setter
+    def priority(self,priorety):
+        self.priority=priorety
     
     
         
