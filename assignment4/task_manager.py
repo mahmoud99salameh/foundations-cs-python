@@ -23,6 +23,11 @@ class Task:
     @priority.setter
     def priority(self,priorety):
         self.priority=priorety
-    
+    @property
+    def completed(self):
+        return self.completed
+    @completed.setter
+    def completed(self,completed):
+        self.completed=completed
     
         
