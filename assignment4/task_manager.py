@@ -54,38 +54,94 @@ class CompletedTasksStack:
     def is_empty(self):
         return not bool(self.stack)
 
+class TaskManager:
+    def __init__(self):
+        self.task_queue = PriorityQueue()
+        self.task_history = CompletedTasksStack()
+
+    def display_menu(self):
+        print("\nTask Manager Menu:")
+        print("1. Add a new task")
+        print("2. Get a task by task id")
+        print("3. Mark the highest priority task as completed")
+        print("4. Display all tasks in order of priority")
+        print("5. Display only tasks that are not completed")
+        print("6. Display the last completed task")
+        print("7. Exit")
+
+    def add_new_task(self):
+        description = input("Enter task description: ")
+        priority = int(input("Enter task priority (integer value): "))
+        new_task = Task(description, priority)
+        self.task_queue.add_task(new_task)
+        print("Task added successfully.")
+
+    def get_task_by_id(self):
+        task_id = int(input("Enter task id: "))
+        # Assuming tasks are uniquely identified by their task_id
+        for task in self.task_queue.tasks:
+            if task.get_task_id() == task_id:
+                print(f"Task found: {task.get_description()} (Priority: {task.get_priority()})")
+                return
+        print("Task not found.")
+
+    def mark_highest_priority_task_completed(self):
+        if not self.task_queue.is_empty():
+            completed_task = self.task_queue.get_next_task()
+            completed_task.set_completed(True)
+            self.task_history.push_task(completed_task)
+            print("Highest priority task marked as completed and moved to task history.")
+        else:
+            print("Task queue is empty.")
+
+    def display_all_tasks(self):
+        if not self.task_queue.is_empty():
+            print("\nAll tasks in order of priority:")
+            for task in self.task_queue.tasks:
+                print(f"Task ID: {task.get_task_id()}, Description: {task.get_description()}, Priority: {task.get_priority()}, Completed: {task.is_completed()}")
+        else:
+            print("Task queue is empty.")
+
+    def display_incomplete_tasks(self):
+        incomplete_tasks = [task for task in self.task_queue.tasks if not task.is_completed()]
+        if incomplete_tasks:
+            print("\nIncomplete tasks:")
+            for task in incomplete_tasks:
+                print(f"Task ID: {task.get_task_id()}, Description: {task.get_description()}, Priority: {task.get_priority()}, Completed: {task.is_completed()}")
+        else:
+            print("No incomplete tasks.")
+
+    def display_last_completed_task(self):
+        if not self.task_history.is_empty():
+            last_completed_task = self.task_history.pop_task()
+            print(f"Last completed task: {last_completed_task.get_description()} (Priority: {last_completed_task.get_priority()})")
+        else:
+            print("Task history is empty.")
+
+    def run_task_manager(self):
+        while True:
+            self.display_menu()
+            choice = input("Enter your choice (1-7): ")
+
+            if choice == '1':
+                self.add_new_task()
+            elif choice == '2':
+                self.get_task_by_id()
+            elif choice == '3':
+                self.mark_highest_priority_task_completed()
+            elif choice == '4':
+                self.display_all_tasks()
+            elif choice == '5':
+                self.display_incomplete_tasks()
+            elif choice == '6':
+                self.display_last_completed_task()
+            elif choice == '7':
+                print("Exiting Task Manager.")
+                break
+            else:
+                print("Invalid choice. Please enter a number between 1 and 7.")
 
 # Example Usage:
 
-# Create tasks
-task1 = Task("Complete project", 2)
-task2 = Task("Study for exam", 1)
-task3 = Task("Exercise", 3)
-
-# Create priority queue
-priority_queue = PriorityQueue()
-
-# Add tasks to the priority queue
-priority_queue.add_task(task1)
-priority_queue.add_task(task2)
-priority_queue.add_task(task3)
-
-# Mark tasks as completed and push them onto the stack
-completed_tasks_stack = CompletedTasksStack()
-
-completed_task = priority_queue.get_next_task()
-completed_task.set_completed(True)
-completed_tasks_stack.push_task(completed_task)
-
-completed_task = priority_queue.get_next_task()
-completed_task.set_completed(True)
-completed_tasks_stack.push_task(completed_task)
-
-# View completed tasks
-while not completed_tasks_stack.is_empty():
-    completed_task = completed_tasks_stack.pop_task()
-    print(f"Completed Task: {completed_task.get_description()} (Priority: {completed_task.get_priority()})")
-
-
-    
-        
+task_manager = TaskManager()
+task_manager.run_task_manager()
